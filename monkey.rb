@@ -52,7 +52,6 @@ class Sequel::Postgres::HStore < Hash
       # TODO: throw an error if there is a NULL key
       "\"#{k.to_s}\" => #{v}"
     end.join(", ")
-    puts string
     "'#{string}'"
   end
 end
