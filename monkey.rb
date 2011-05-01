@@ -26,16 +26,15 @@ class Sequel::Postgres::HStore < Hash
     hash = {}
     scanner = StringScanner.new(string)
     while !scanner.eos?
-      key = parse_quotable_string(scanner)
+      k = parse_quotable_string(scanner)
       skip_key_value_delimiter(scanner)
-      value = parse_quotable_string(scanner)
+      v = parse_quotable_string(scanner)
       skip_pair_delimiter(scanner)
-
-      hash[key] = value
+      hash[k] = v
     end
-
     self[hash]
   end
+
   def initialize(hash)
     @hash = hash
   end
