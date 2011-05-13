@@ -1,6 +1,6 @@
 require 'sequel'
-db = Sequel.connect("postgres://localhost/pvh")
-load 'monkey.rb'
+db = Sequel.connect(ENV["TEST_URL"])
+require './lib/sequel-hstore'
 
 describe "hstores from hashes" do
   before do

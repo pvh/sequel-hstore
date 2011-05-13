@@ -1,12 +1,14 @@
-# timing is bad
 require 'strscan'
 
 class Sequel::Postgres::HStore < Hash
+  def self.quoted_string(scanner)
+    key = scanner.scan(/(\\"|[^"])+/).gsub("\\", "")
+    scanner.skip(/"/)
+    key
+  end
   def self.parse_quotable_string(scanner)
     if scanner.scan(/"/)
-      key = scanner.scan(/(\\"|[^"])+/).gsub("\\", "")
-      scanner.skip(/"/)
-      key
+      value = quoted_string(scanner)
     else
       value = scanner.scan(/\w+/)
       value = nil if value == "NULL"
@@ -30,7 +32,9 @@ class Sequel::Postgres::HStore < Hash
       skip_key_value_delimiter(scanner)
       v = parse_quotable_string(scanner)
       skip_pair_delimiter(scanner)
-      hash[k] = v
+      # controversial...
+      # to_sym, or what?
+      hash[k.to_sym] = v
     end
     self[hash]
   end
@@ -55,17 +59,4 @@ class Sequel::Postgres::HStore < Hash
     "'#{string}'"
   end
 end
-
-class Hash
-  def to_hstore
-    Sequel::Postgres::HStore[self.dup]
-  end
-
-  def self.===(other)
-    return false if self == Hash && other.is_a?(Sequel::Postgres::HStore)
-    super
-  end
-end
-
-Sequel::Postgres::PG_TYPES[16392] = lambda{|s| Sequel::Postgres::HStore.new_from_string(s) }
 
