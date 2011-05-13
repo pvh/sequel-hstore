@@ -1,4 +1,7 @@
 source :rubygems
 
-gem "bundler"
+gem "pg"
+gem "sequel", :git =>
+  "git://github.com/pvh/sequel.git"
 
+gem "rspec"

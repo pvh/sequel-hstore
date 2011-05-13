@@ -1,9 +1,27 @@
+GIT
+  remote: git://github.com/pvh/sequel.git
+  revision: 5e3ace7dea09f9c094c85b3be0eb0f06377eda71
+  specs:
+    sequel (3.23.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
+    diff-lcs (1.1.2)
+    pg (0.9.0)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.5.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
+  pg
+  rspec
+  sequel!

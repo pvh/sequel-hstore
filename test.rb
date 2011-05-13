@@ -17,7 +17,7 @@ describe "hstores from hashes" do
   end
 
   it "should translate into a sequel literal" do
-    db[:resources].literal(@h).should == "'{a => b, foo => bar}'"
+    db[:resources].literal(@h).should == '\'"a" => "b", "foo" => "bar"\''
   end
 end
 
@@ -32,11 +32,7 @@ describe "creating hstores from strings" do
   end
 
   it "should set a value correctly" do
-    @h["service_available?"].should == "false"
-  end
-
-  it "should set a value correctly" do
-    @h["service_available?"].should == "false"
+    @h[:service_available?].should == "false"
   end
 end
 
