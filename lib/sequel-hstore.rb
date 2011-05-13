@@ -1,5 +1,7 @@
 # This is an awful monkey patch lifted from some other project. Can we improve on this somehow?
 # (See github.com/couchrest/couchrest-core(?))
+require 'sequel/adapters/postgres'
+
 class Hash
   def to_hstore
     Sequel::Postgres::HStore[self.dup]

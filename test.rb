@@ -1,6 +1,6 @@
 require 'sequel'
-db = Sequel.connect(ENV["TEST_URL"])
 require './lib/sequel-hstore'
+db = Sequel.connect(ENV["TEST_URL"])
 
 describe "hstores from hashes" do
   before do
