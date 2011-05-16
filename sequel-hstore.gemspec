@@ -3,8 +3,8 @@ $spec = Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = 'sequel-hstore'
-  s.version = '0.1.1'
-  s.date = '2011-05-13'
+  s.version = '0.1.2'
+  s.date = '2011-05-16'
 
   s.description = "postgresql hstore support for the sequel gem"
   s.summary     = ""
