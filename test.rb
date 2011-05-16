@@ -34,5 +34,18 @@ describe "creating hstores from strings" do
   it "should set a value correctly" do
     @h[:service_available?].should == "false"
   end
+
+  it "should store an empty string" do
+    empty = {:nothing => ""}.to_hstore
+    db[:resources].literal(empty).should == '\'"nothing" => ""\''
+  end
+
+  it "should parse an empty string" do
+    empty = Sequel::Postgres::HStore.new_from_string(
+      "\"ip\"=>\"\", \"service_available?\"=>\"false\"")
+
+    empty[:ip].should == ""
+    empty[:ip].should_not == nil
+  end
 end
 
