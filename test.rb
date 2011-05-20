@@ -40,6 +40,16 @@ describe "creating hstores from strings" do
     db[:resources].literal(empty).should == '\'"nothing" => ""\''
   end
 
+  it "should support single quotes in strings" do
+    empty = {:journey => "don't stop believin'"}.to_hstore
+    db[:resources].literal(empty).should == %q{'"journey" => "don\'t stop believin\'"'}
+  end
+
+  it "should support double quotes in strings" do
+    empty = {:journey => 'He said he was "ready"'}.to_hstore
+    db[:resources].literal(empty).should == %q{'"journey" => "He said he was \"ready\""'}
+  end
+
   it "should parse an empty string" do
     empty = Sequel::Postgres::HStore.new_from_string(
       "\"ip\"=>\"\", \"service_available?\"=>\"false\"")

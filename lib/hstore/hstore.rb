@@ -43,6 +43,10 @@ class Sequel::Postgres::HStore < Hash
     @hash = hash
   end
 
+  def to_s_escaped(str)
+    str.to_s.gsub(/"/, '\"').gsub(/'/, "\\\\'")
+  end
+
   def sql_literal(dataset)
     string = self.map do |(k,v)|
       if v.nil?
@@ -50,11 +54,12 @@ class Sequel::Postgres::HStore < Hash
         v = "NULL"
       else
         # otherwise, write a double-quoted string with backslash escapes for quotes
-        v = v.to_s.gsub('"', '\"')
+        v = to_s_escaped(v)
         v = "\"#{v}\""
       end
+
       # TODO: throw an error if there is a NULL key
-      "\"#{k.to_s}\" => #{v}"
+      "\"#{to_s_escaped(k)}\" => #{v}"
     end.join(", ")
     "'#{string}'"
   end
