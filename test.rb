@@ -42,7 +42,7 @@ describe "creating hstores from strings" do
 
   it "should support single quotes in strings" do
     empty = {:journey => "don't stop believin'"}.to_hstore
-    db[:resources].literal(empty).should == %q{'"journey" => "don\'t stop believin\'"'}
+    db[:resources].literal(empty).should == %q{'"journey" => "don''t stop believin''"'}
   end
 
   it "should support double quotes in strings" do

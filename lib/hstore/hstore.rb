@@ -44,7 +44,7 @@ class Sequel::Postgres::HStore < Hash
   end
 
   def to_s_escaped(str)
-    str.to_s.gsub(/"/, '\"').gsub(/'/, "\\\\'")
+    str.to_s.gsub(/"/, '\"').gsub(/'/, "''")
   end
 
   def sql_literal(dataset)
