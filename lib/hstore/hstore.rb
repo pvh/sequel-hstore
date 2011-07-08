@@ -2,7 +2,7 @@ require 'strscan'
 
 class Sequel::Postgres::HStore < Hash
   def self.quoted_string(scanner)
-    key = scanner.scan(/(\\"|[^"])*/).gsub("\\", "")
+    key = scanner.scan(/(\\"|[^"])*/).gsub("\\\\", "\\")
     scanner.skip(/"/)
     key
   end
@@ -26,6 +26,10 @@ class Sequel::Postgres::HStore < Hash
 
   def self.new_from_string(string)
     hash = {}
+
+    # remove single quotes around literal if necessary
+    string = string[1..-2] if string[0] == "'" and string[-1] == "'"
+
     scanner = StringScanner.new(string)
     while !scanner.eos?
       k = parse_quotable_string(scanner)
@@ -44,7 +48,8 @@ class Sequel::Postgres::HStore < Hash
   end
 
   def to_s_escaped(str)
-    str.to_s.gsub(/"/, '\"').gsub(/'/, "''")
+    puts str
+    str.to_s.gsub(/\\(?!")/) {'\\\\'}.gsub(/"/, '\"').gsub(/'/, "''").tap {|s| puts s}
   end
 
   def sql_literal(dataset)
