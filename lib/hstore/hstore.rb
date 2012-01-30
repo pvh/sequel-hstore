@@ -18,7 +18,7 @@ class Sequel::Postgres::HStore < Hash
   end
 
   def self.skip_key_value_delimiter(scanner)
-    scanner.skip(/\s*=>\s*/) 
+    scanner.skip(/\s*=>\s*/)
   end
 
   def self.skip_pair_delimiter(scanner)
@@ -42,10 +42,6 @@ class Sequel::Postgres::HStore < Hash
       hash[k.to_sym] = v
     end
     self[hash]
-  end
-
-  def initialize(hash)
-    @hash = hash
   end
 
   def to_s_escaped(str)
