@@ -1,3 +1,4 @@
+require 'rspec'
 require 'sequel'
 require './lib/sequel-hstore'
 
