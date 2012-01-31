@@ -15,4 +15,3 @@ class Hash
 end
 
 Sequel::Postgres::PG_NAMED_TYPES[:hstore] = lambda{|s| Sequel::Postgres::HStore.new_from_string(s) }
-
